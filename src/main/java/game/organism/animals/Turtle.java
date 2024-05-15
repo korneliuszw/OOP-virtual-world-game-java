@@ -12,7 +12,7 @@ public class Turtle extends Animal implements Cloneable {
 
     @Override
     public String getSymbol() {
-        return "T";
+        return "Z";
     }
 
     @Override

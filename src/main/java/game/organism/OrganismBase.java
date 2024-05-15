@@ -5,9 +5,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-
 
 public abstract class OrganismBase implements Comparable<OrganismBase> {
     public static final int NON_MOVABLE_ORGANISM = -1;
@@ -39,7 +36,7 @@ public abstract class OrganismBase implements Comparable<OrganismBase> {
         return o1.aggressiveness < o2.aggressiveness ? 1 : -1;
     }
 
-    void kill() {
+    public void kill() {
         this.alive = false;
     }
 
@@ -64,7 +61,7 @@ public abstract class OrganismBase implements Comparable<OrganismBase> {
 
     protected boolean collide(World world, OrganismBase collider) throws CloneNotSupportedException {
         // TODO: log
-        if (collider.attack >= this.attack)
+        if (collider.attack > this.attack)
             this.kill();
         else
             collider.kill();
@@ -107,6 +104,10 @@ public abstract class OrganismBase implements Comparable<OrganismBase> {
 
     public void setPosition(Point position) {
         this.position = position;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
     }
 
 

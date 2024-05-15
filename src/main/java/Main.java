@@ -1,6 +1,7 @@
 import game.World;
 import game.board.SquareBoard;
 import game.organism.animals.*;
+import game.organism.plants.*;
 import ui.Board.BoardPaneBase;
 import ui.Board.SquareBoardPane;
 import ui.DimenionsModal;
@@ -34,6 +35,20 @@ public class Main {
         world.getOrganisms().spawnOrganism(new Turtle(new Point(1, 5)));
         world.getOrganisms().spawnOrganism(new Turtle(new Point(4, 10)));
         world.getOrganisms().spawnOrganism(new Turtle(new Point(6, 10)));
+        world.getOrganisms().spawnOrganism(new Grass(new Point(1, 1)));
+        world.getOrganisms().spawnOrganism(new Grass(new Point(2, 2)));
+        world.getOrganisms().spawnOrganism(new Grass(new Point(2, 5)));
+        world.getOrganisms().spawnOrganism(new Grass(new Point(3, 5)));
+        world.getOrganisms().spawnOrganism(new Grass(new Point(4, 5)));
+        world.getOrganisms().spawnOrganism(new Dandelion(new Point(10, 15)));
+        world.getOrganisms().spawnOrganism(new Guarana(new Point(4, 13)));
+        world.getOrganisms().spawnOrganism(new Guarana(new Point(13, 2)));
+        world.getOrganisms().spawnOrganism(new Belladonna(new Point(15, 15)));
+        world.getOrganisms().spawnOrganism(new Belladonna(new Point(8, 1)));
+        world.getOrganisms().spawnOrganism(new Belladonna(new Point(4, 8)));
+        world.getOrganisms().spawnOrganism(new Belladonna(new Point(10, 5)));
+        world.getOrganisms().spawnOrganism(new SosnowskyWeed(new Point(3, 8)));
+        world.getOrganisms().spawnOrganism(new SosnowskyWeed(new Point(9, 2)));
         BoardPaneBase boardPane = new SquareBoardPane(world, width, height);
         KeyboardManager keyboardManager = new KeyboardManager(world, boardPane);
         MainFrame mainFrame = new MainFrame(boardPane, keyboardManager);
