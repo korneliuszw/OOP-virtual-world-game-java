@@ -15,6 +15,7 @@ public abstract class OrganismBase implements Comparable<OrganismBase> {
     private Point position;
     private final int aggressiveness;
     private int age = 0;
+
     private int attack = 0;
     private int id = 0;
 
@@ -70,7 +71,7 @@ public abstract class OrganismBase implements Comparable<OrganismBase> {
         return true;
     }
 
-    private boolean canMoveThere(World world, Point position, boolean skipOccupied) {
+    protected boolean canMoveThere(World world, Point position, boolean skipOccupied) {
         return !skipOccupied || world.getOrganisms().getEntityAt(position) == null;
     }
 
@@ -120,6 +121,11 @@ public abstract class OrganismBase implements Comparable<OrganismBase> {
     public int getAge() {
         return age;
     }
+
+    public int getAttack() {
+        return attack;
+    }
+
 
     public abstract String getSymbol();
 
