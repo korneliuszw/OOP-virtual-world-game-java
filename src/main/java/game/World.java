@@ -4,6 +4,7 @@ import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
 import game.board.IBoardSupplier;
 import game.organism.OrganismBase;
+import ui.Board.BoardPaneBase;
 
 import java.awt.*;
 import java.util.*;
@@ -66,7 +67,7 @@ public class World {
         }
     }
 
-    public void turn() throws CloneNotSupportedException {
+    public void turn(BoardPaneBase boardPaneBase) throws CloneNotSupportedException {
         for (Iterator<List<OrganismBase>> listIt = organisms.getAllOrganisms(); listIt.hasNext(); ) {
             List<OrganismBase> list = listIt.next();
             for (OrganismBase organism : list) {
@@ -77,7 +78,7 @@ public class World {
         }
         actTurn();
         endTurn();
-        changed = true;
+        boardPaneBase.redraw();
     }
 
 

@@ -4,6 +4,7 @@ import game.organism.animals.Fox;
 import ui.Board.BoardPaneBase;
 import ui.Board.SquareBoardPane;
 import ui.DimenionsModal;
+import ui.KeyboardManager;
 import ui.MainFrame;
 
 import javax.swing.*;
@@ -19,14 +20,9 @@ public class Main {
         World world = new World(width, height, new SquareBoard(width, height));
         world.getOrganisms().spawnOrganism(new Fox(new Point(2, 2)));
         world.getOrganisms().spawnOrganism(new Fox(new Point(3, 4)));
-        MainFrame mainFrame = new MainFrame();
         BoardPaneBase boardPane = new SquareBoardPane(world, width, height);
-        world.turn();
-        mainFrame.getContentPane().add(boardPane);
-        mainFrame.pack();
-        SwingUtilities.invokeLater(boardPane::redraw);
-        while (true) {
-            Thread.sleep(100);
-        }
+        KeyboardManager keyboardManager = new KeyboardManager(world, boardPane);
+        MainFrame mainFrame = new MainFrame(boardPane, keyboardManager);
+        world.turn(boardPane);
     }
 }

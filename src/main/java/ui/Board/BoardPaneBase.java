@@ -31,6 +31,8 @@ public abstract class BoardPaneBase extends JPanel {
                 if (organism == null) {
                     continue;
                 }
+                System.out.println(point);
+                System.out.println(organism.getPosition());
                 System.out.println(organism.getSymbol());
                 CellBase cell = new SquareCell(new Point(i, j), organism);
                 add(cell);
@@ -39,8 +41,13 @@ public abstract class BoardPaneBase extends JPanel {
     }
 
     public void redraw() {
-        this.removeAll();
-        draw();
+        SwingUtilities.invokeLater(() -> {
+            System.out.println("Redrawing");
+            removeAll();
+            draw();
+            revalidate();
+            repaint();
+        });
     }
 
 }
