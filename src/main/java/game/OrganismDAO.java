@@ -9,8 +9,8 @@ import java.util.*;
 import java.util.List;
 
 public class OrganismDAO {
-    private HashMap<Point, List<OrganismBase>> mapper = new HashMap<>();
-    private HashMap<String, Integer> organismCounter = new HashMap<>();
+    private final HashMap<Point, List<OrganismBase>> mapper = new HashMap<>();
+    private final HashMap<String, Integer> organismCounter = new HashMap<>();
 
     private void insertOrganism(@NotNull OrganismBase organism) {
         Point position = organism.getPosition();
@@ -56,4 +56,9 @@ public class OrganismDAO {
     Iterator<List<OrganismBase>> getAllOrganisms() {
         return mapper.values().stream().iterator();
     }
+
+    public HashMap<Point, List<OrganismBase>> getMapper() {
+        return mapper;
+    }
+
 }

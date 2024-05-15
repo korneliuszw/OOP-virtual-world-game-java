@@ -13,9 +13,8 @@ import java.util.List;
 public class World {
     private int width;
     private int height;
-    private PriorityQueue<OrganismBase> organismActionQueue;
-    private OrganismDAO organisms = new OrganismDAO();
-    private boolean changed = true;
+    private final PriorityQueue<OrganismBase> organismActionQueue;
+    private final OrganismDAO organisms = new OrganismDAO();
     private final IBoardSupplier boardSupplier;
 
     public World(int width, int height, IBoardSupplier boardSupplier) {
@@ -51,18 +50,14 @@ public class World {
     }
 
     private void endTurn() {
-        for (Iterator<List<OrganismBase>> listIt = organisms.getAllOrganisms(); listIt.hasNext(); ) {
-            List<OrganismBase> list = listIt.next();
-            for (Iterator<OrganismBase> it = list.iterator(); it.hasNext(); ) {
-                OrganismBase organism = it.next();
-                if (organism.isAlive()) {
-                    organism.endTurn();
-                } else {
-                    it.remove();
-                }
-            }
+        HashMap<Point, List<OrganismBase>> mapper = organisms.getMapper();
+        List<Point> keys = new LinkedList<>(mapper.keySet());
+        for (Point key : keys) {
+            List<OrganismBase> list = mapper.get(key);
+            list.removeIf(organism -> !organism.isAlive());
+            list.forEach(OrganismBase::endTurn);
             if (list.isEmpty()) {
-                listIt.remove();
+                mapper.remove(key);
             }
         }
     }
@@ -83,7 +78,6 @@ public class World {
 
 
     public void commit() {
-        changed = false;
     }
 
     public IBoardSupplier getBoardSupplier() {
