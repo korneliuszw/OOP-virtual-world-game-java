@@ -1,10 +1,9 @@
 package game;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 import game.board.IBoardSupplier;
 import game.organism.OrganismBase;
 import ui.Board.BoardPaneBase;
+import game.organism.animals.Player;
 
 import java.awt.*;
 import java.util.*;
@@ -16,12 +15,16 @@ public class World {
     private final PriorityQueue<OrganismBase> organismActionQueue;
     private final OrganismDAO organisms = new OrganismDAO();
     private final IBoardSupplier boardSupplier;
+    private final Player player;
+    private BoardPaneBase boardPane;
 
-    public World(int width, int height, IBoardSupplier boardSupplier) {
+
+    public World(int width, int height, IBoardSupplier boardSupplier, Player player) {
         this.width = width;
         this.height = height;
         this.boardSupplier = boardSupplier;
         this.organismActionQueue = new PriorityQueue<>();
+        this.player = player;
     }
 
     public int getWidth() {
@@ -62,7 +65,7 @@ public class World {
         }
     }
 
-    public void turn(BoardPaneBase boardPaneBase) throws CloneNotSupportedException {
+    public void turn() throws CloneNotSupportedException {
         for (Iterator<List<OrganismBase>> listIt = organisms.getAllOrganisms(); listIt.hasNext(); ) {
             List<OrganismBase> list = listIt.next();
             for (OrganismBase organism : list) {
@@ -73,7 +76,7 @@ public class World {
         }
         actTurn();
         endTurn();
-        boardPaneBase.redraw();
+        boardPane.redraw();
     }
 
 
@@ -82,5 +85,17 @@ public class World {
 
     public IBoardSupplier getBoardSupplier() {
         return boardSupplier;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public BoardPaneBase getBoardPane() {
+        return boardPane;
+    }
+
+    public void setBoardPane(BoardPaneBase boardPane) {
+        this.boardPane = boardPane;
     }
 }

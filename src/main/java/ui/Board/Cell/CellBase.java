@@ -1,6 +1,7 @@
 package ui.Board.Cell;
 
 import game.organism.OrganismBase;
+import game.organism.animals.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,10 @@ public class CellBase extends JLabel {
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setHorizontalAlignment(SwingConstants.CENTER);
         setVerticalAlignment(SwingConstants.CENTER);
+        if (organism instanceof Player) {
+            System.out.println("Player");
+            setForeground(((Player) organism).isWaitingForInput() ? Color.RED : Color.BLUE);
+        }
         setText(organism.getSymbol());
     }
 }

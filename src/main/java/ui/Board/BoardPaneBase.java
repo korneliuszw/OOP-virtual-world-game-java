@@ -23,6 +23,8 @@ public abstract class BoardPaneBase extends JPanel {
 
     protected abstract OrganismBase getOrganismAt(Point point);
 
+    protected abstract CellBase createCell(Point position, OrganismBase organism);
+
     protected void draw() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -31,10 +33,7 @@ public abstract class BoardPaneBase extends JPanel {
                 if (organism == null) {
                     continue;
                 }
-                System.out.println(point);
-                System.out.println(organism.getPosition());
-                System.out.println(organism.getSymbol());
-                CellBase cell = new SquareCell(new Point(i, j), organism);
+                CellBase cell = createCell(new Point(i, j), organism);
                 add(cell);
             }
         }
@@ -43,6 +42,7 @@ public abstract class BoardPaneBase extends JPanel {
     public void redraw() {
         SwingUtilities.invokeLater(() -> {
             System.out.println("Redrawing");
+            System.out.println(Thread.currentThread());
             removeAll();
             draw();
             revalidate();
