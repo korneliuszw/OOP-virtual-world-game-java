@@ -22,7 +22,7 @@ public class HexBoard implements IBoardSupplier {
         } else if (move == 3) {
             return new Point(current.x + 1, current.y);
         } else if (move == 4) {
-            return new Point(current.x, current.y + +1);
+            return new Point(current.x, current.y + 1);
         } else if (move == 5) {
             return new Point(current.x - 1, current.y + 1);
         }

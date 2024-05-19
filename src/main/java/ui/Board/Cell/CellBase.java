@@ -4,7 +4,6 @@ import game.organism.OrganismBase;
 import game.organism.animals.Animal;
 import game.organism.animals.Player;
 import game.organism.plants.Plant;
-import ui.Board.BoardPaneBase;
 
 import javax.swing.*;
 import java.awt.*;

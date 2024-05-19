@@ -8,7 +8,6 @@ import ui.Board.Cell.CellClickSpawn;
 import ui.Board.Cell.SquareCell;
 
 import java.awt.*;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 

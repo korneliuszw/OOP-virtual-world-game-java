@@ -1,13 +1,9 @@
 package ui;
 
 import game.World;
-import ui.Board.BoardPaneBase;
-import ui.Board.BoardPaneHolder;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.concurrent.CompletableFuture;
 
 public class KeyboardManager implements KeyListener {
     private World world;
@@ -42,7 +38,6 @@ public class KeyboardManager implements KeyListener {
                 }
             });
             gameThread.start();
-            ;
         }
     }
 

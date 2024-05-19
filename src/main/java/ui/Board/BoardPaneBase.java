@@ -7,7 +7,6 @@ import game.organism.OrganismBase;
 import game.organism.animals.Player;
 import ui.Board.Cell.CellBase;
 import ui.Board.Cell.CellClickSpawn;
-import ui.Board.Cell.SquareCell;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,16 +15,16 @@ import java.util.List;
 
 public abstract class BoardPaneBase extends JPanel {
     protected OrganismDAO organismsDAO;
-    int width;
-    int height;
+    protected int width;
+    protected int height;
     protected IBoardSupplier boardSupplier;
+    private Player player;
 
     private Void setPlayer(Player player) {
         this.player = player;
         return null;
     }
 
-    private Player player;
 
     public BoardPaneBase(World world, int width, int height) {
         this.organismsDAO = world.getOrganisms();

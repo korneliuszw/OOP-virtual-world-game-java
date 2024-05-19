@@ -6,13 +6,12 @@ import ui.AbilityStatus;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.util.Optional;
 
 public class Player extends Animal {
     private class Ability implements Serializable {
-        int cooldownUntil = 0;
-        int availableUntil = 0;
-        final int DURATION = 5;
+        private int cooldownUntil = 0;
+        private int availableUntil = 0;
+        private final int DURATION = 5;
 
         public boolean isAvailable() {
             return availableUntil <= getAge() && cooldownUntil <= getAge();
@@ -22,12 +21,11 @@ public class Player extends Animal {
             return availableUntil > getAge();
         }
 
-        public boolean activate() {
+        public void activate() {
             if (!isAvailable())
-                return false;
+                return;
             // TODO: Log?
             availableUntil = getAge() + DURATION;
-            return true;
         }
 
         public void update(World world) {
@@ -80,6 +78,7 @@ public class Player extends Animal {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
+                return;
             }
         }
         System.out.println("Player move: " + pendingMove);

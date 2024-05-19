@@ -1,6 +1,5 @@
 package game;
 
-import game.board.BoardType;
 import game.board.IBoardSupplier;
 import game.organism.OrganismBase;
 import ui.Board.BoardPaneBase;
@@ -13,8 +12,8 @@ import java.util.*;
 import java.util.List;
 
 public class World implements Serializable {
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
     private final PriorityQueue<OrganismBase> organismActionQueue;
     private final OrganismDAO organisms = new OrganismDAO();
     private final IBoardSupplier boardSupplier;
@@ -38,10 +37,6 @@ public class World implements Serializable {
 
     public int getHeight() {
         return height;
-    }
-
-    boolean isLegalPosition(Point position) {
-        return position.x >= 0 && position.x < width && position.y >= 0 && position.y < height;
     }
 
     public OrganismDAO getOrganisms() {

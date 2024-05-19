@@ -24,7 +24,6 @@ public class OrganismDAO implements Serializable {
 
     public void spawnOrganism(@NotNull OrganismBase organism) {
         String name = organism.getSymbol();
-        Point position = organism.getPosition();
         int id = 0;
         if (organismCounter.containsKey(name)) {
             id = organismCounter.get(name);

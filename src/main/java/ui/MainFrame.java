@@ -2,7 +2,6 @@ package ui;
 
 import game.World;
 import game.board.HexBoard;
-import ui.Board.BoardPaneBase;
 import ui.Board.BoardPaneHolder;
 import ui.Board.HexBoardPane;
 import ui.Board.SquareBoardPane;
@@ -10,7 +9,6 @@ import ui.Board.SquareBoardPane;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.*;
 import java.nio.file.Files;
 
@@ -92,6 +90,7 @@ public class MainFrame extends JFrame {
                 path = lastSavePath = fileChooser.getSelectedFile().getAbsolutePath();
             }
         }
+        assert path != null;
         try (FileOutputStream fileOutputStream = new FileOutputStream(path)) {
             try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
                 objectOutputStream.writeObject(world);

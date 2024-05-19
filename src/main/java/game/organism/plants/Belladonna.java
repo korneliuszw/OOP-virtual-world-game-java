@@ -22,7 +22,7 @@ public class Belladonna extends Plant implements Cloneable {
     }
 
     @Override
-    protected boolean collide(World world, OrganismBase collider) throws CloneNotSupportedException {
+    protected boolean collide(World world, OrganismBase collider) {
         if (collider instanceof Plant)
             return true;
         collider.kill();
