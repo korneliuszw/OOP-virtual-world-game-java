@@ -42,6 +42,9 @@ public abstract class OrganismBase implements Comparable<OrganismBase>, Serializ
     }
 
     protected void moveThisOrganism(World world, Point newPoint) throws CloneNotSupportedException {
+        if (!world.getBoardSupplier().isLegalPosition(newPoint)) {
+            return;
+        }
         OrganismBase colidee = world.getOrganisms().getEntityAt(newPoint);
         Point oldPosition = (Point) this.position.clone();
         this.position = newPoint;

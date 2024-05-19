@@ -17,10 +17,12 @@ import java.util.function.Function;
 public class CellClickSpawn extends MouseAdapter {
     private final OrganismDAO organismsDAO;
     private final Runnable redrawFunction;
+    private final Function<Player, Void> playerSetter;
 
-    public CellClickSpawn(OrganismDAO organismsDAO, Runnable redrawFunction) {
+    public CellClickSpawn(OrganismDAO organismsDAO, Runnable redrawFunction, Function<Player, Void> playerSetter) {
         this.organismsDAO = organismsDAO;
         this.redrawFunction = redrawFunction;
+        this.playerSetter = playerSetter;
     }
 
     boolean hasPlayer() {
@@ -63,7 +65,9 @@ public class CellClickSpawn extends MouseAdapter {
         try {
             Point gamePositon = ((CellBase) e.getSource()).getGamePosition();
             if (organismClass == Player.class) {
-                organismsDAO.spawnOrganism(new Player(gamePositon, AbilityStatus.getInstance()));
+                Player player = new Player(gamePositon, AbilityStatus.getInstance());
+                organismsDAO.spawnOrganism(player);
+                playerSetter.apply(player);
             } else {
                 OrganismBase organism = organismClass.getDeclaredConstructor(Point.class).newInstance(gamePositon);
                 organismsDAO.spawnOrganism(organism);

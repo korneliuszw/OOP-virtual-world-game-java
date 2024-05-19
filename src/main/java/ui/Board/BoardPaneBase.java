@@ -2,27 +2,43 @@ package ui.Board;
 
 import game.OrganismDAO;
 import game.World;
+import game.board.IBoardSupplier;
 import game.organism.OrganismBase;
+import game.organism.animals.Player;
 import ui.Board.Cell.CellBase;
 import ui.Board.Cell.CellClickSpawn;
 import ui.Board.Cell.SquareCell;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.List;
 
 public abstract class BoardPaneBase extends JPanel {
     protected OrganismDAO organismsDAO;
     int width;
     int height;
+    protected IBoardSupplier boardSupplier;
+
+    private Void setPlayer(Player player) {
+        this.player = player;
+        return null;
+    }
+
+    private Player player;
 
     public BoardPaneBase(World world, int width, int height) {
         this.organismsDAO = world.getOrganisms();
+        this.player = world.getPlayer();
         this.height = height;
         this.width = width;
         setLayout(null);
     }
 
-    protected abstract OrganismBase getOrganismAt(Point point);
+    protected OrganismBase getOrganismAt(Point point) {
+        Point realPoint = translatePoint(point);
+        return organismsDAO.getEntityAt(realPoint);
+    }
 
     protected abstract CellBase createCell(Point position, OrganismBase organism, CellClickSpawn cellClickSpawn);
 
@@ -30,17 +46,39 @@ public abstract class BoardPaneBase extends JPanel {
         this.width = world.getWidth();
         this.height = world.getHeight();
         this.organismsDAO = world.getOrganisms();
+        this.player = world.getPlayer();
+    }
+
+    protected abstract List<Point> getAllPoints();
+
+    protected Point translatePoint(Point point) {
+        return point;
+    }
+
+    HashMap<Point, Integer> getPlayerNeighbours() {
+        HashMap<Point, Integer> neighbours = new HashMap<>();
+        for (int i = 0; i < boardSupplier.getNeighbours(); i++) {
+            Point neighbour = boardSupplier.getNewPosition(player.getPosition(), i);
+            neighbours.put(neighbour, i);
+        }
+        return neighbours;
     }
 
     protected void draw() {
-        CellClickSpawn cellClickSpawn = new CellClickSpawn(organismsDAO, this::redraw);
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                Point point = new Point(i, j);
-                OrganismBase organism = getOrganismAt(point);
-                CellBase cell = createCell(new Point(i, j), organism, cellClickSpawn);
-                add(cell);
+        CellClickSpawn cellClickSpawn = new CellClickSpawn(organismsDAO, this::redraw, this::setPlayer);
+        HashMap<Point, Integer> playerNeighbours = getPlayerNeighbours();
+        for (Point point : getAllPoints()) {
+            OrganismBase organism = getOrganismAt(point);
+            CellBase cell = createCell(point, organism, cellClickSpawn);
+            if (player.isWaitingForInput()) {
+                // add text to movable cells informing which button to press
+                Integer neighbour = playerNeighbours.get(translatePoint(point));
+                if (neighbour != null) {
+                    cell.add(new JLabel(String.valueOf(neighbour)));
+                    cell.setBorder(BorderFactory.createLineBorder(Color.RED));
+                }
             }
+            add(cell);
         }
     }
 

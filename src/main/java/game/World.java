@@ -1,9 +1,11 @@
 package game;
 
+import game.board.BoardType;
 import game.board.IBoardSupplier;
 import game.organism.OrganismBase;
 import ui.Board.BoardPaneBase;
 import game.organism.animals.Player;
+import ui.Board.BoardPaneHolder;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -16,8 +18,9 @@ public class World implements Serializable {
     private final PriorityQueue<OrganismBase> organismActionQueue;
     private final OrganismDAO organisms = new OrganismDAO();
     private final IBoardSupplier boardSupplier;
-    private final Player player;
-    private transient BoardPaneBase boardPane;
+    private Player player;
+    private transient BoardPaneHolder boardPane;
+
     private static final long serialVersionUID = 1L;
 
 
@@ -48,6 +51,9 @@ public class World implements Serializable {
     private void actTurn() throws CloneNotSupportedException {
         while (!organismActionQueue.isEmpty()) {
             OrganismBase organism = organismActionQueue.poll();
+            if (organism instanceof Player) {
+                player = (Player) organism;
+            }
             if (organism.isAlive()) {
                 organism.act(this);
             }
@@ -78,7 +84,7 @@ public class World implements Serializable {
         }
         actTurn();
         endTurn();
-        boardPane.redraw();
+        boardPane.getBoardPane().redraw();
     }
 
     public IBoardSupplier getBoardSupplier() {
@@ -90,10 +96,12 @@ public class World implements Serializable {
     }
 
     public BoardPaneBase getBoardPane() {
-        return boardPane;
+        return boardPane.getBoardPane();
     }
 
-    public void setBoardPane(BoardPaneBase boardPane) {
+    public void setBoardPane(BoardPaneHolder boardPane) {
         this.boardPane = boardPane;
     }
+
+
 }

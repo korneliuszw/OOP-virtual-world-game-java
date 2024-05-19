@@ -1,5 +1,8 @@
 package game;
 
+import game.board.BoardType;
+import game.board.HexBoard;
+import game.board.IBoardSupplier;
 import game.board.SquareBoard;
 import game.organism.animals.*;
 import game.organism.plants.*;
@@ -8,9 +11,10 @@ import ui.AbilityStatus;
 import java.awt.*;
 
 public class WorldFactory {
-    public static World createWorld(int width, int height, AbilityStatus abilityStatus) {
+    public static World createWorld(int width, int height, AbilityStatus abilityStatus, BoardType boardType) {
         Player player = new Player(new Point(1, 1), abilityStatus);
-        World world = new World(width, height, new SquareBoard(width, height), player);
+        IBoardSupplier boardSupplier = boardType == BoardType.SQUARE ? new SquareBoard(width, height) : new HexBoard(width, height);
+        World world = new World(width, height, boardSupplier, player);
         world.getOrganisms().spawnOrganism(player);
         world.getOrganisms().spawnOrganism(new Fox(new Point(5, 4)));
         world.getOrganisms().spawnOrganism(new Fox(new Point(7, 8)));

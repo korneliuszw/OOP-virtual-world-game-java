@@ -2,6 +2,7 @@ package ui;
 
 import game.World;
 import ui.Board.BoardPaneBase;
+import ui.Board.BoardPaneHolder;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -10,9 +11,9 @@ import java.util.concurrent.CompletableFuture;
 
 public class KeyboardManager implements KeyListener {
     private World world;
-    CompletableFuture<Void> gameTurn;
+    private Thread gameThread;
 
-    public KeyboardManager(World world, BoardPaneBase boardPane) {
+    public KeyboardManager(World world) {
         this.world = world;
     }
 
@@ -22,40 +23,27 @@ public class KeyboardManager implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        new Thread(() -> {
-            switch (e.getKeyCode()) {
-                case KeyEvent.VK_E:
-                    world.getPlayer().activateAbility();
-                    break;
-                case KeyEvent.VK_W:
-                case KeyEvent.VK_UP:
-                    world.getPlayer().move(new Point(0, -1));
-                    break;
-                case KeyEvent.VK_S:
-                case KeyEvent.VK_DOWN:
-                    world.getPlayer().move(new Point(0, 1));
-                    break;
-                case KeyEvent.VK_A:
-                case KeyEvent.VK_LEFT:
-                    world.getPlayer().move(new Point(-1, 0));
-                    break;
-                case KeyEvent.VK_D:
-                case KeyEvent.VK_RIGHT:
-                    world.getPlayer().move(new Point(1, 0));
-                    break;
-                case KeyEvent.VK_ENTER:
-                    if (gameTurn != null && !gameTurn.isDone()) return;
-                    gameTurn = new CompletableFuture<>();
-                    try {
-                        world.turn();
-                    } catch (CloneNotSupportedException ex) {
-                        throw new RuntimeException(ex);
-                    } finally {
-                        gameTurn.complete(null);
-                    }
-                    break;
+        for (int i = 0; i < world.getBoardSupplier().getNeighbours(); i++) {
+            if (e.getKeyChar() == '0' + i) {
+                world.getPlayer().move(world, i);
+                return;
             }
-        }).start();
+        }
+        int keyCode = e.getKeyCode();
+        if (keyCode == KeyEvent.VK_E) {
+            world.getPlayer().activateAbility();
+        } else if (keyCode == KeyEvent.VK_ENTER) {
+            if (gameThread != null && gameThread.isAlive()) return;
+            gameThread = new Thread(() -> {
+                try {
+                    world.turn();
+                } catch (CloneNotSupportedException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+            gameThread.start();
+            ;
+        }
     }
 
     @Override
@@ -65,6 +53,10 @@ public class KeyboardManager implements KeyListener {
 
     public void setWorld(World world) {
         this.world = world;
+    }
+
+    public void reset() {
+        gameThread.interrupt();
     }
 
 }

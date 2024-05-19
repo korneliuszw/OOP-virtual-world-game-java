@@ -73,6 +73,7 @@ public class Player extends Animal {
     @Override
     public void act(World world) throws CloneNotSupportedException {
         ability.updateTimers();
+        showAbilityStatus();
         waitingForInput = true;
         world.getBoardPane().redraw();
         while (pendingMove == null) {
@@ -83,9 +84,7 @@ public class Player extends Animal {
         }
         System.out.println("Player move: " + pendingMove);
         waitingForInput = false;
-        Point direction = pendingMove;
-        Point newPosition = new Point(getPosition().x + direction.x, getPosition().y + direction.y);
-        moveThisOrganism(world, newPosition);
+        moveThisOrganism(world, pendingMove);
         pendingMove = null;
         ability.update(world);
     }
@@ -102,8 +101,8 @@ public class Player extends Animal {
         }
     }
 
-    public void move(Point direction) {
-        pendingMove = direction;
+    public void move(World world, int neightbour) {
+        pendingMove = world.getBoardSupplier().getNewPosition(getPosition(), neightbour);
     }
 
     public boolean isWaitingForInput() {
