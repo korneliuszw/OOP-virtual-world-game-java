@@ -1,4 +1,4 @@
-package ui.Board.Cell;
+package ui.board.cell;
 
 import game.OrganismDAO;
 import game.organism.OrganismBase;

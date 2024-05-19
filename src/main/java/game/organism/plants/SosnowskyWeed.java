@@ -24,7 +24,7 @@ public class SosnowskyWeed extends Plant implements Cloneable {
     }
 
     @Override
-    protected boolean collide(World world, OrganismBase collider) throws CloneNotSupportedException {
+    protected boolean collide(World world, OrganismBase collider) {
         collider.kill();
         kill();
         Logger.getInstance().logOrganismAction(collider, "ate and died", this);
@@ -32,7 +32,7 @@ public class SosnowskyWeed extends Plant implements Cloneable {
     }
 
     @Override
-    public void act(World world) throws CloneNotSupportedException {
+    public void act(World world) {
         for (int i = 0; i < world.getBoardSupplier().getNeighbours(); i++) {
             Point neighbour = world.getBoardSupplier().getNewPosition(getPosition(), i);
             OrganismBase organism = world.getOrganisms().getEntityAt(neighbour);

@@ -1,4 +1,4 @@
-package ui.Board;
+package ui.board;
 
 public class BoardPaneHolder {
     public BoardPaneHolder(BoardPaneBase boardPane) {

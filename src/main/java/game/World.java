@@ -2,9 +2,9 @@ package game;
 
 import game.board.IBoardSupplier;
 import game.organism.OrganismBase;
-import ui.Board.BoardPaneBase;
+import ui.board.BoardPaneBase;
 import game.organism.animals.Player;
-import ui.Board.BoardPaneHolder;
+import ui.board.BoardPaneHolder;
 
 import java.awt.*;
 import java.io.Serializable;

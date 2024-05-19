@@ -25,7 +25,7 @@ public class Logger {
 
     public void logOrganismAction(OrganismBase organism, String message, OrganismBase target) {
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("[%s%d] %s", organism.getSymbol(), organism.getAge(), message));
+        sb.append(String.format("[%s%d] %s", organism.getSymbol(), organism.getId(), message));
         if (target != null) {
             sb.append(String.format(" (%s%d)", target.getSymbol(), target.getAge()));
         }

@@ -1,12 +1,12 @@
-package ui.Board;
+package ui.board;
 
 import game.OrganismDAO;
 import game.World;
 import game.board.IBoardSupplier;
 import game.organism.OrganismBase;
 import game.organism.animals.Player;
-import ui.Board.Cell.CellBase;
-import ui.Board.Cell.CellClickSpawn;
+import ui.board.cell.CellBase;
+import ui.board.cell.CellClickSpawn;
 
 import javax.swing.*;
 import java.awt.*;

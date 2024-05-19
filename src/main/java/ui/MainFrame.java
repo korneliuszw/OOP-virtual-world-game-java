@@ -3,9 +3,9 @@ package ui;
 import game.Logger;
 import game.World;
 import game.board.HexBoard;
-import ui.Board.BoardPaneHolder;
-import ui.Board.HexBoardPane;
-import ui.Board.SquareBoardPane;
+import ui.board.BoardPaneHolder;
+import ui.board.HexBoardPane;
+import ui.board.SquareBoardPane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,11 +14,11 @@ import java.io.*;
 import java.nio.file.Files;
 
 public class MainFrame extends JFrame {
-    BoardPaneHolder boardPane;
-    String lastSavePath;
-    World world;
-    AbilityStatus abilityStatus;
-    KeyboardManager keyboardManager;
+    private final BoardPaneHolder boardPane;
+    private String lastSavePath;
+    private World world;
+    private final AbilityStatus abilityStatus;
+    private final KeyboardManager keyboardManager;
 
     public MainFrame(BoardPaneHolder boardPane, KeyboardManager keyboardManager, AbilityStatus abilityStatus, World world) {
         super("Wirtualny swiat 198349");

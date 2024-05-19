@@ -1,11 +1,11 @@
-package ui.Board;
+package ui.board;
 
 import game.World;
 import game.board.HexBoard;
 import game.organism.OrganismBase;
-import ui.Board.Cell.CellBase;
-import ui.Board.Cell.CellClickSpawn;
-import ui.Board.Cell.HexCell;
+import ui.board.cell.CellBase;
+import ui.board.cell.CellClickSpawn;
+import ui.board.cell.HexCell;
 
 import java.awt.*;
 import java.util.LinkedList;

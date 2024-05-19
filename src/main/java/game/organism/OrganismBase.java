@@ -16,6 +16,7 @@ public abstract class OrganismBase implements Comparable<OrganismBase>, Serializ
     private int age = 0;
 
     private int attack;
+
     private int id = 0;
 
     protected OrganismBase(int attack, int aggressiveness, Point position) {
@@ -130,6 +131,10 @@ public abstract class OrganismBase implements Comparable<OrganismBase>, Serializ
 
     public int getAttack() {
         return attack;
+    }
+
+    public int getId() {
+        return id;
     }
 
 

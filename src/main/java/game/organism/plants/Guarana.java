@@ -23,7 +23,7 @@ public class Guarana extends Plant implements Cloneable {
     }
 
     @Override
-    protected boolean collide(World world, OrganismBase collider) throws CloneNotSupportedException {
+    protected boolean collide(World world, OrganismBase collider) {
         collider.setAttack(collider.getAttack() + 3);
         kill();
         Logger.getInstance().logOrganismAction(collider, "ate and gained straight", this);
