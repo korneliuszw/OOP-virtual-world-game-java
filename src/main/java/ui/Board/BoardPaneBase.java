@@ -4,6 +4,7 @@ import game.OrganismDAO;
 import game.World;
 import game.organism.OrganismBase;
 import ui.Board.Cell.CellBase;
+import ui.Board.Cell.CellClickSpawn;
 import ui.Board.Cell.SquareCell;
 
 import javax.swing.*;
@@ -23,7 +24,7 @@ public abstract class BoardPaneBase extends JPanel {
 
     protected abstract OrganismBase getOrganismAt(Point point);
 
-    protected abstract CellBase createCell(Point position, OrganismBase organism);
+    protected abstract CellBase createCell(Point position, OrganismBase organism, CellClickSpawn cellClickSpawn);
 
     public void changeWorld(World world) {
         this.width = world.getWidth();
@@ -32,14 +33,12 @@ public abstract class BoardPaneBase extends JPanel {
     }
 
     protected void draw() {
+        CellClickSpawn cellClickSpawn = new CellClickSpawn(organismsDAO, this::redraw);
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 Point point = new Point(i, j);
                 OrganismBase organism = getOrganismAt(point);
-                if (organism == null) {
-                    continue;
-                }
-                CellBase cell = createCell(new Point(i, j), organism);
+                CellBase cell = createCell(new Point(i, j), organism, cellClickSpawn);
                 add(cell);
             }
         }
@@ -55,5 +54,10 @@ public abstract class BoardPaneBase extends JPanel {
             repaint();
         });
     }
+
+    public OrganismDAO getOrganismsDAO() {
+        return organismsDAO;
+    }
+
 
 }

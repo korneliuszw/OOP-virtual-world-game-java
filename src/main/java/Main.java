@@ -21,9 +21,9 @@ public class Main {
         }
 //        int width = DimenionsModal.readDimension("width");
 //        int height = DimenionsModal.readDimension("height");
-        int width = 20;
-        int height = 20;
-        AbilityStatus abilityStatus = new AbilityStatus();
+        int width = 60;
+        int height = 60;
+        AbilityStatus abilityStatus = AbilityStatus.getInstance();
         World world = WorldFactory.createWorld(width, height, abilityStatus);
         BoardPaneBase boardPane = new SquareBoardPane(world, width, height);
         KeyboardManager keyboardManager = new KeyboardManager(world, boardPane);

@@ -4,12 +4,11 @@ package ui;
 import javax.swing.*;
 
 public class AbilityStatus extends JLabel {
-
     public enum Status {
         READY, IN_PROGRESS, COOLDOWN
     }
 
-    public AbilityStatus() {
+    AbilityStatus() {
         super();
         setHorizontalAlignment(SwingConstants.CENTER);
         setVerticalAlignment(SwingConstants.CENTER);
@@ -33,5 +32,14 @@ public class AbilityStatus extends JLabel {
             revalidate();
             repaint();
         });
+    }
+
+    private static AbilityStatus instance;
+
+    public static AbilityStatus getInstance() {
+        if (instance == null) {
+            instance = new AbilityStatus();
+        }
+        return instance;
     }
 }

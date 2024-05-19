@@ -4,6 +4,7 @@ import game.World;
 import ui.Board.BoardPaneBase;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.*;
@@ -30,8 +31,21 @@ public class MainFrame extends JFrame {
         getContentPane().add(boardPane);
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         addKeyListener(keyboardManager);
+        scrollable();
         pack();
         createMenu();
+    }
+
+    void scrollable() {
+        // set maximum size to screen size
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Rectangle bounds = env.getMaximumWindowBounds();
+        setMaximumSize(new Dimension(bounds.width, bounds.height));
+        // add scroll bars
+        JScrollPane scrollPane = new JScrollPane(getContentPane());
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        setContentPane(scrollPane);
     }
 
     void createMenu() {
