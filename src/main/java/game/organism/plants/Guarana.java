@@ -1,5 +1,6 @@
 package game.organism.plants;
 
+import game.Logger;
 import game.World;
 import game.organism.OrganismBase;
 
@@ -25,7 +26,7 @@ public class Guarana extends Plant implements Cloneable {
     protected boolean collide(World world, OrganismBase collider) throws CloneNotSupportedException {
         collider.setAttack(collider.getAttack() + 3);
         kill();
-        // TODO?: Log
+        Logger.getInstance().logOrganismAction(collider, "ate and gained straight", this);
         return true;
     }
 }

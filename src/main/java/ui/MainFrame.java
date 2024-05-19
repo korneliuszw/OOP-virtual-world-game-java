@@ -1,5 +1,6 @@
 package ui;
 
+import game.Logger;
 import game.World;
 import game.board.HexBoard;
 import ui.Board.BoardPaneHolder;
@@ -25,7 +26,6 @@ public class MainFrame extends JFrame {
         this.world = world;
         this.abilityStatus = abilityStatus;
         this.keyboardManager = keyboardManager;
-        setSize(600, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
@@ -36,6 +36,11 @@ public class MainFrame extends JFrame {
         Container container = new Container();
         container.add(abilityStatus);
         container.add(boardPane.getBoardPane());
+        Container boardContainer = new Container();
+        boardContainer.setLayout(new BoxLayout(boardContainer, BoxLayout.X_AXIS));
+        boardContainer.add(boardPane.getBoardPane());
+        Logger.init(boardContainer);
+        container.add(boardContainer);
         setContentPane(container);
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         scrollable();
@@ -61,9 +66,6 @@ public class MainFrame extends JFrame {
     void createMenu() {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
-        JMenuItem newGame = new JMenuItem("New Game");
-        newGame.setMnemonic(KeyEvent.VK_N);
-        newGame.addActionListener(e -> newGame());
         JMenuItem save = new JMenuItem("Save");
         save.setMnemonic(KeyEvent.VK_S);
         save.addActionListener(e -> save());
@@ -73,7 +75,6 @@ public class MainFrame extends JFrame {
         JMenuItem exit = new JMenuItem("Exit");
         exit.setMnemonic(KeyEvent.VK_Q);
         exit.addActionListener(e -> quit());
-        menu.add(newGame);
         menu.add(save);
         menu.add(load);
         menu.add(exit);
@@ -96,6 +97,7 @@ public class MainFrame extends JFrame {
                 objectOutputStream.writeObject(world);
                 objectOutputStream.flush();
                 JOptionPane.showMessageDialog(this, "Game saved", "Success", JOptionPane.INFORMATION_MESSAGE);
+                Logger.getInstance().log("Game saved");
             }
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(this, "Save file doesn't exit or can't write into it", "Error", JOptionPane.ERROR_MESSAGE);
@@ -122,6 +124,7 @@ public class MainFrame extends JFrame {
                     getContentPane().revalidate();
                     getContentPane().repaint();
                     boardPane.getBoardPane().redraw();
+                    Logger.getInstance().log("Game loaded");
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
@@ -132,10 +135,6 @@ public class MainFrame extends JFrame {
 
     void quit() {
         System.exit(0);
-    }
-
-    void newGame() {
-
     }
 
 }

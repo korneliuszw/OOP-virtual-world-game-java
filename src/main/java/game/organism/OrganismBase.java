@@ -1,5 +1,6 @@
 package game.organism;
 
+import game.Logger;
 import game.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -58,13 +59,13 @@ public abstract class OrganismBase implements Comparable<OrganismBase>, Serializ
             }
         }
         if (this.alive) {
-            // TODO: Log
+            Logger.getInstance().logOrganismAction(this, String.format("moved to (%d, %d)", newPoint.x, newPoint.y), null);
         }
     }
 
 
     protected boolean collide(World world, OrganismBase collider) throws CloneNotSupportedException {
-        // TODO: log
+        Logger.getInstance().logOrganismAction(this, "collided with", collider);
         if (collider.attack > this.attack)
             this.kill();
         else

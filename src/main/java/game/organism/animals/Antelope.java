@@ -1,5 +1,6 @@
 package game.organism.animals;
 
+import game.Logger;
 import game.World;
 import game.organism.OrganismBase;
 
@@ -38,7 +39,7 @@ public class Antelope extends Animal implements Cloneable {
         if (rng == 1) {
             Point pos = generateRandomLegalPosition(world, true);
             if (pos != getPosition()) {
-                // TODO: log?
+                Logger.getInstance().logOrganismAction(this, "escaped from", other);
                 moveThisOrganism(world, pos);
                 return true;
             }

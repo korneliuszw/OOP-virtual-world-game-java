@@ -1,5 +1,6 @@
 package game.organism.plants;
 
+import game.Logger;
 import game.World;
 import game.organism.OrganismBase;
 
@@ -27,7 +28,7 @@ public class Belladonna extends Plant implements Cloneable {
             return true;
         collider.kill();
         kill();
-        // TODO?: Log
+        Logger.getInstance().logOrganismAction(collider, "eat and died", this);
         return true;
     }
 }

@@ -1,5 +1,6 @@
 package game.organism.animals;
 
+import game.Logger;
 import game.World;
 import game.organism.OrganismBase;
 import ui.AbilityStatus;
@@ -24,7 +25,7 @@ public class Player extends Animal {
         public void activate() {
             if (!isAvailable())
                 return;
-            // TODO: Log?
+            Logger.getInstance().log("Player activated ability");
             availableUntil = getAge() + DURATION;
         }
 
@@ -35,14 +36,14 @@ public class Player extends Animal {
                 OrganismBase organism = world.getOrganisms().getEntityAt(neighbour);
                 if (organism != null) {
                     organism.kill();
-                    // TODO: Log?
+                    Logger.getInstance().logOrganismAction(Player.this, "killed with an ability", organism);
                 }
             }
         }
 
         public void updateTimers() {
             if (availableUntil != -0 && availableUntil <= getAge() && availableUntil > cooldownUntil) {
-                // TODO: Log?
+                Logger.getInstance().log("Player ability expired");
                 cooldownUntil = availableUntil + DURATION;
             }
         }

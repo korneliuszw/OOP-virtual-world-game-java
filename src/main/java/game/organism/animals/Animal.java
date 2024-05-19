@@ -1,5 +1,6 @@
 package game.organism.animals;
 
+import game.Logger;
 import game.World;
 import game.organism.OrganismBase;
 
@@ -22,7 +23,7 @@ public abstract class Animal extends OrganismBase {
         Animal child = (Animal) other.clone();
         child.setAge(0);
         child.setPosition(position);
-        // TODO: Log?
+        Logger.getInstance().logOrganismAction(this, "mated with", other);
         world.getOrganisms().spawnOrganism(child);
         didMate = true;
     }

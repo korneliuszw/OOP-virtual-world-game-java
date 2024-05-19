@@ -1,5 +1,6 @@
 package game.organism.plants;
 
+import game.Logger;
 import game.World;
 import game.organism.OrganismBase;
 
@@ -25,7 +26,8 @@ public abstract class Plant extends OrganismBase {
         Plant child = (Plant) clone();
         child.setAge(0);
         child.setPosition(position);
-        // TODO: Log?
+        Logger.getInstance().logOrganismAction(this, "spawned", child);
+
         world.getOrganisms().spawnOrganism(child);
     }
 }

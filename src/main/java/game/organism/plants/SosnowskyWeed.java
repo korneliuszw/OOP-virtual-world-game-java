@@ -1,5 +1,6 @@
 package game.organism.plants;
 
+import game.Logger;
 import game.World;
 import game.organism.OrganismBase;
 import game.organism.animals.Animal;
@@ -26,7 +27,7 @@ public class SosnowskyWeed extends Plant implements Cloneable {
     protected boolean collide(World world, OrganismBase collider) throws CloneNotSupportedException {
         collider.kill();
         kill();
-        // TODO?: Log
+        Logger.getInstance().logOrganismAction(collider, "ate and died", this);
         return true;
     }
 
@@ -37,6 +38,7 @@ public class SosnowskyWeed extends Plant implements Cloneable {
             OrganismBase organism = world.getOrganisms().getEntityAt(neighbour);
             if (organism instanceof Animal) {
                 organism.kill();
+                Logger.getInstance().logOrganismAction(this, "killed", organism);
             }
         }
     }
