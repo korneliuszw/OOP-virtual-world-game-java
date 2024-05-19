@@ -8,7 +8,7 @@ import java.awt.*;
 public class Fox extends Animal implements Cloneable {
 
     public Fox(Point position) {
-        super(9, 5, position);
+        super(3, 7, position);
     }
 
     @Override

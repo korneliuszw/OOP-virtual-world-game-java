@@ -4,9 +4,10 @@ import game.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class OrganismBase implements Comparable<OrganismBase> {
+public abstract class OrganismBase implements Comparable<OrganismBase>, Serializable {
     public static final int NON_MOVABLE_ORGANISM = -1;
     private boolean alive = true;
     private Point position;
@@ -46,8 +47,8 @@ public abstract class OrganismBase implements Comparable<OrganismBase> {
         this.position = newPoint;
         world.getOrganisms().moveOrganism(this, oldPosition);
         if (colidee != null && !colidee.equals(this)) {
-            // both organisms are alive so we need to move them back
-            if (!this.collide(world, colidee)) {
+            if (!colidee.collide(world, this)) {
+                // both organisms are alive so we need to move them back
                 Point newPosition = (Point) this.position.clone();
                 this.position = oldPosition;
                 world.getOrganisms().moveOrganism(this, newPosition);

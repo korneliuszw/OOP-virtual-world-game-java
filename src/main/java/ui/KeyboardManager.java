@@ -9,13 +9,11 @@ import java.awt.event.KeyListener;
 import java.util.concurrent.CompletableFuture;
 
 public class KeyboardManager implements KeyListener {
-    private final World world;
-    private final BoardPaneBase boardPane;
+    private World world;
     CompletableFuture<Void> gameTurn;
 
     public KeyboardManager(World world, BoardPaneBase boardPane) {
         this.world = world;
-        this.boardPane = boardPane;
     }
 
     @Override
@@ -64,4 +62,9 @@ public class KeyboardManager implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
     }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
 }

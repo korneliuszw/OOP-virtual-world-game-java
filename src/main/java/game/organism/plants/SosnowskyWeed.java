@@ -2,6 +2,7 @@ package game.organism.plants;
 
 import game.World;
 import game.organism.OrganismBase;
+import game.organism.animals.Animal;
 
 import java.awt.*;
 
@@ -34,7 +35,7 @@ public class SosnowskyWeed extends Plant implements Cloneable {
         for (int i = 0; i < world.getBoardSupplier().getNeighbours(); i++) {
             Point neighbour = world.getBoardSupplier().getNewPosition(getPosition(), i);
             OrganismBase organism = world.getOrganisms().getEntityAt(neighbour);
-            if (organism != null) {
+            if (organism instanceof Animal) {
                 organism.kill();
             }
         }

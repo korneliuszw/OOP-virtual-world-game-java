@@ -6,17 +6,19 @@ import ui.Board.BoardPaneBase;
 import game.organism.animals.Player;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 
-public class World {
+public class World implements Serializable {
     private int width;
     private int height;
     private final PriorityQueue<OrganismBase> organismActionQueue;
     private final OrganismDAO organisms = new OrganismDAO();
     private final IBoardSupplier boardSupplier;
     private final Player player;
-    private BoardPaneBase boardPane;
+    private transient BoardPaneBase boardPane;
+    private static final long serialVersionUID = 1L;
 
 
     public World(int width, int height, IBoardSupplier boardSupplier, Player player) {
@@ -77,10 +79,6 @@ public class World {
         actTurn();
         endTurn();
         boardPane.redraw();
-    }
-
-
-    public void commit() {
     }
 
     public IBoardSupplier getBoardSupplier() {

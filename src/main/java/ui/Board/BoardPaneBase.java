@@ -10,9 +10,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class BoardPaneBase extends JPanel {
-    protected final OrganismDAO organismsDAO;
-    final int width;
-    final int height;
+    protected OrganismDAO organismsDAO;
+    int width;
+    int height;
 
     public BoardPaneBase(World world, int width, int height) {
         this.organismsDAO = world.getOrganisms();
@@ -24,6 +24,12 @@ public abstract class BoardPaneBase extends JPanel {
     protected abstract OrganismBase getOrganismAt(Point point);
 
     protected abstract CellBase createCell(Point position, OrganismBase organism);
+
+    public void changeWorld(World world) {
+        this.width = world.getWidth();
+        this.height = world.getHeight();
+        this.organismsDAO = world.getOrganisms();
+    }
 
     protected void draw() {
         for (int i = 0; i < width; i++) {

@@ -5,10 +5,11 @@ import game.organism.OrganismBase;
 import ui.AbilityStatus;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.Optional;
 
 public class Player extends Animal {
-    private class Ability {
+    private class Ability implements Serializable {
         int cooldownUntil = 0;
         int availableUntil = 0;
         final int DURATION = 5;
@@ -50,9 +51,9 @@ public class Player extends Animal {
     }
 
     boolean waitingForInput = false;
-    private Ability ability = new Ability();
-    private final AbilityStatus abilityStatus;
-    private Optional<Point> pendingMove = Optional.empty();
+    private final Ability ability = new Ability();
+    private transient AbilityStatus abilityStatus;
+    private Point pendingMove = null;
 
     public Player(Point position, AbilityStatus abilityStatus) {
         super(5, 4, position);
@@ -74,18 +75,18 @@ public class Player extends Animal {
         ability.updateTimers();
         waitingForInput = true;
         world.getBoardPane().redraw();
-        while (!pendingMove.isPresent()) {
+        while (pendingMove == null) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
             }
         }
-        System.out.println("Player move: " + pendingMove.get());
+        System.out.println("Player move: " + pendingMove);
         waitingForInput = false;
-        Point direction = pendingMove.get();
+        Point direction = pendingMove;
         Point newPosition = new Point(getPosition().x + direction.x, getPosition().y + direction.y);
         moveThisOrganism(world, newPosition);
-        pendingMove = Optional.empty();
+        pendingMove = null;
         ability.update(world);
     }
 
@@ -102,11 +103,15 @@ public class Player extends Animal {
     }
 
     public void move(Point direction) {
-        pendingMove = Optional.of(direction);
+        pendingMove = direction;
     }
 
     public boolean isWaitingForInput() {
         return waitingForInput;
+    }
+
+    public void setAbilityStatus(AbilityStatus abilityStatus) {
+        this.abilityStatus = abilityStatus;
     }
 
 }

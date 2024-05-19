@@ -5,10 +5,11 @@ import com.sun.istack.internal.Nullable;
 import game.organism.OrganismBase;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 
-public class OrganismDAO {
+public class OrganismDAO implements Serializable {
     private final HashMap<Point, List<OrganismBase>> mapper = new HashMap<>();
     private final HashMap<String, Integer> organismCounter = new HashMap<>();
 

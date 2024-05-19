@@ -1,8 +1,9 @@
 package game.board;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class SquareBoard implements IBoardSupplier {
+public class SquareBoard implements IBoardSupplier, Serializable {
 
     final int width;
     final int height;
