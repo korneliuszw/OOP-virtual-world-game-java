@@ -82,7 +82,6 @@ public class Player extends Animal {
                 return;
             }
         }
-        System.out.println("Player move: " + pendingMove);
         waitingForInput = false;
         moveThisOrganism(world, pendingMove);
         pendingMove = null;

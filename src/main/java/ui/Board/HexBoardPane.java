@@ -49,7 +49,6 @@ public class HexBoardPane extends BoardPaneBase {
                 points.add(point);
             }
         }
-        System.out.println(points);
         return points;
     }
 }

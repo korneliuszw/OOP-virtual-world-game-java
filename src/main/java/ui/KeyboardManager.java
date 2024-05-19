@@ -51,7 +51,8 @@ public class KeyboardManager implements KeyListener {
     }
 
     public void reset() {
-        gameThread.interrupt();
+        if (gameThread != null && gameThread.isAlive())
+            gameThread.interrupt();
     }
 
 }

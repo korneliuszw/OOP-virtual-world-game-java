@@ -84,17 +84,11 @@ public abstract class BoardPaneBase extends JPanel {
     public void redraw() {
         SwingUtilities.invokeLater(() -> {
             System.out.println("Redrawing");
-            System.out.println(Thread.currentThread());
             removeAll();
             draw();
             revalidate();
             repaint();
         });
     }
-
-    public OrganismDAO getOrganismsDAO() {
-        return organismsDAO;
-    }
-
 
 }

@@ -11,7 +11,6 @@ public class QuestionModal {
             if (width == null) {
                 System.exit(0);
             }
-            System.out.println(width);
             try {
                 int numericValue = Integer.parseInt(width);
                 if (numericValue > 0) {
@@ -33,6 +32,8 @@ public class QuestionModal {
                 return BoardType.SQUARE;
             } else if (choice == 1) {
                 return BoardType.HEX;
+            } else if (choice == JOptionPane.CLOSED_OPTION) {
+                System.exit(0);
             }
         }
     }

@@ -124,6 +124,7 @@ public class MainFrame extends JFrame {
                     getContentPane().revalidate();
                     getContentPane().repaint();
                     boardPane.getBoardPane().redraw();
+                    Logger.getInstance().clear();
                     Logger.getInstance().log("Game loaded");
                 }
             } catch (IOException | ClassNotFoundException e) {

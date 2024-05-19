@@ -3,7 +3,6 @@ package game;
 import game.organism.OrganismBase;
 
 import javax.swing.*;
-import javax.swing.text.DefaultCaret;
 import java.awt.*;
 
 public class Logger {
@@ -36,7 +35,6 @@ public class Logger {
     public void log(String message) {
         textArea.append(message + "\n");
         System.out.println(message);
-        System.out.println(textArea.getDocument().getLength());
         textArea.setCaretPosition(textArea.getDocument().getLength());
         textArea.revalidate();
         textArea.repaint();
@@ -44,6 +42,10 @@ public class Logger {
 
     public static void init(Container container) {
         instance = new Logger(container);
+    }
+
+    public void clear() {
+        textArea.setText("");
     }
 
     public static Logger getInstance() {

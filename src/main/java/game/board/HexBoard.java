@@ -1,8 +1,9 @@
 package game.board;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class HexBoard implements IBoardSupplier {
+public class HexBoard implements IBoardSupplier, Serializable {
     final int width;
     final int height;
 

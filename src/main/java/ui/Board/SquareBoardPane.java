@@ -15,7 +15,7 @@ public class SquareBoardPane extends BoardPaneBase {
     public SquareBoardPane(World world, int width, int height) {
         super(world, width, height);
         boardSupplier = new SquareBoard(width, height);
-        setPreferredSize(new Dimension((width + 3) * SquareCell.CELL_SIZE, 2 * (height - 1) * SquareCell.CELL_SIZE));
+        setPreferredSize(new Dimension(width * SquareCell.CELL_SIZE, height * SquareCell.CELL_SIZE));
     }
 
     @Override
